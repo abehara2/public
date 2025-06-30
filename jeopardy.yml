@@ -1,4 +1,4 @@
-name: Keep Supabase Alive
+name: Keep jeopardy.ashankbehara.com alive
 
 on:
   schedule:
@@ -9,6 +9,7 @@ on:
 jobs:
   keep-alive:
     runs-on: ubuntu-latest
+    environment: env  # Use the "env" environment created in repo settings
     
     steps:
       - name: Checkout code
@@ -16,8 +17,8 @@ jobs:
       
       - name: Keep Supabase alive
         env:
-          SUPABASE_URL: ${{ secrets.JEOPARDY_PUBLIC_SUPABASE_URL }}
-          SUPABASE_ANON_KEY: ${{ secrets.JEOPARDY_PUBLIC_SUPABASE_ANON_KEY }}
+          SUPABASE_URL: ${{ secrets.JEOPARDY_SUPABASE_URL }}
+          SUPABASE_ANON_KEY: ${{ secrets.JEOPARDY_SUPABASE_ANON_KEY }}
         run: |
           # Create a temporary heartbeat record and then delete it
           # This keeps the database active without affecting real data
@@ -70,8 +71,8 @@ jobs:
       
       - name: Verify connection
         env:
-          SUPABASE_URL: ${{ secrets.JEOPARDY_PUBLIC_SUPABASE_URL }}
-          SUPABASE_ANON_KEY: ${{ secrets.JEOPARDY_PUBLIC_SUPABASE_ANON_KEY }}
+          SUPABASE_URL: ${{ secrets.JEOPARDY_SUPABASE_URL }}
+          SUPABASE_ANON_KEY: ${{ secrets.JEOPARDY_SUPABASE_ANON_KEY }}
         run: |
           # Simple health check
           echo "Verifying Supabase connection..."
@@ -87,4 +88,4 @@ jobs:
           else
             echo "Connection verification failed: $HEALTH_CHECK"
             exit 1
-          fi 
+          fi
